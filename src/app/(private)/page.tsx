@@ -1,5 +1,5 @@
+import LogoutButton from "@/components/Auth/LogoutButton";
 import Header from "@/components/Layout/Header";
-import ToastButton from "@/components/ToastButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ const page = () => {
             Production grade Fullstack Next.js starter template
           </h2>
 
-          <ToastButton />
+          <LogoutButton />
         </section>
       </main>
     </>
