@@ -1,28 +1,66 @@
 import LogoutButton from "@/components/Auth/LogoutButton";
-import Header from "@/components/Layout/Header";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shadcnui/avatar";
+import { buttonVariants } from "@/components/shadcnui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/shadcnui/card";
+import { auth } from "@/lib/auth";
+import { UserPenIcon } from "lucide-react";
 import { Metadata } from "next";
+import { headers } from "next/headers";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Next.js Starter Fullstack",
-  description: "Production grade Fullstack Next.js starter template",
+  title: "Profil | Auth Profile App",
+  description: "Profil  page of Auth Profile App",
 };
 
-const page = () => {
+const page = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session) {
+    return redirect("/login");
+  }
+
+  const { name, email, image } = session.user;
+
   return (
-    <>
-      <Header />
+    <section className="grid h-dvh place-items-center">
+      <Card>
+        <CardHeader className="flex flex-col items-center">
+          <Avatar className={"size-64"}>
+            {image && <AvatarImage src={`/${image}`} />}
 
-      <main className="grid h-dvh place-items-center">
-        <section className="space-y-4 text-center">
-          <h1 className="text-5xl font-semibold">Next.js Starter Fullstack</h1>
-          <h2 className="text-3xl">
-            Production grade Fullstack Next.js starter template
-          </h2>
-
+            <AvatarFallback className={`text-2xl`}>No Image</AvatarFallback>
+          </Avatar>
+        </CardHeader>
+        <CardContent className="text-center">
+          <div className="text-3xl">Welcome, {name} </div>
+          <div className="text-xl">{email}</div>
+        </CardContent>
+        <CardFooter className="grid grid-cols-2 gap-4">
+          <Link
+            href={"/edit"}
+            className={buttonVariants({
+              variant: "outline",
+              size: "lg",
+            })}>
+            <UserPenIcon />
+            Edit
+          </Link>
           <LogoutButton />
-        </section>
-      </main>
-    </>
+        </CardFooter>
+      </Card>
+    </section>
   );
 };
 

@@ -10,7 +10,7 @@ const Header = () => {
         <Link href={"/"}>
           <h1
             className="text-2xl font-semibold"
-            aria-label="App Name">
+            aria-label="Auth Profile">
             NSF App
           </h1>
         </Link>
