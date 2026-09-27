@@ -44,7 +44,7 @@ const page = async () => {
           </Avatar>
         </CardHeader>
         <CardContent className="text-center">
-          <div className="text-3xl">Welcome, {name} </div>
+          <div className="text-3xl">Welcome, {name} 👋 </div>
           <div className="text-xl">{email}</div>
         </CardContent>
         <CardFooter className="grid grid-cols-2 gap-4">
